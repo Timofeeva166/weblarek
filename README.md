@@ -141,7 +141,7 @@ interface IBuyer {
 `products: IProduct[]`- хранит массив всех товаров;  
 `selectedProduct: IProduct | null`- хранит товар, выбранный для подробного отображения;
 
-Методы класса:
+Методы класса:  
 `setProductsList(products: IProduct[]): void` - сохранение массива товаров, полученного в параметрах метода;  
 `getProductsList(): IProduct[]` - получение массива товаров из модели;  
 `getProductById(id: string): IProduct | undefined` - получение одного товара по его id;  
@@ -159,7 +159,7 @@ interface IBuyer {
 Поля класса:  
 `productsInBasket: IProduct[]`- хранит массив товаров, выбранных покупателем для покупки;
 
-Методы класса:
+Методы класса:  
 `getProductsInBasket(): IProduct[]` - получение массива товаров, которые находятся в корзине;  
 `addToBasket(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины;  
 `removeFromBasket(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины;  
@@ -185,7 +185,7 @@ interface IBuyer {
 `phoneNumber: string`- хранит номер телефона;  
 `email: string`- хранит email;  
 
-Методы класса:
+Методы класса:  
 `setPaymentType(paymentType: 'card' | 'cash' | ''): void` - сохранение вида оплаты;  
 `setAddress(address: string): void` - сохранение адреса;  
 `setPhoneNumber(phoneNumber: string): void` - сохранение номера телефона;  
