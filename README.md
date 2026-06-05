@@ -145,7 +145,7 @@ interface IBuyer {
 `setProductsList(products: IProduct[]): void` - сохранение массива товаров, полученного в параметрах метода;
 `getProductsList(): IProduct[]` - получение массива товаров из модели;
 `getProductById(id: string): IProduct | undefined` - получение одного товара по его id;
-`setSelectedProduct(product: IProduct): void` - сохранение выбранного товара для подробного отображения;
+`setSelectedProduct(selectedProduct: IProduct): void` - сохранение выбранного товара для подробного отображения;
 `getSelectedProduct(): IProduct` - получение выбранного товара для подробного отображения.
 
 #### Класс Basket
@@ -166,7 +166,7 @@ interface IBuyer {
 `clearBasket(): void` - очистка корзины;
 `getBasketPrice(): number` - получение стоимости всех товаров в корзине;
 `getBasketItemsAmount(): number` - получение количества товаров в корзине;
-`inBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода;
+`isProductInBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода;
 
 #### Класс Buyer
 Осуществляет хранение данных покупателя, которые тот указал при оформлении заказа.
@@ -196,6 +196,6 @@ interface IBuyer {
   paymentType?: 'Необходимо указать вид оплаты';
   address?: 'Необходимо указать адрес';
   phoneNumber?: 'Необходимо указать номер телефона';
-  email?: 'Необходимо указать email'
+  email?: 'Необходимо указать email';
 }`. 
 `validateBuyerData(paymentType: 'card' | 'cash' | '', address: string, phoneNumber: string, email: string): ErrorsInBuyerData | null` - валидация данных покупателя.
