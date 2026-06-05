@@ -172,12 +172,12 @@ interface IBuyer {
 Осуществляет хранение данных покупателя, которые тот указал при оформлении заказа.
 
 Конструктор:  
-`constructor() {
-  this.paymentType = '';
-  this.address = '';
-  this.phoneNumber = '';
-  this.email = '';
-}`
+`constructor() {  
+  this.paymentType = '';  
+  this.address = '';  
+  this.phoneNumber = '';  
+  this.email = '';  
+}`  
 
 Поля класса:  
 `paymentType: 'card' | 'cash' | ''`- хранит вид оплаты;  
@@ -192,10 +192,11 @@ interface IBuyer {
 `setEmail(email: string): void` - сохранение email;  
 `getBuyerData(): IBuyer` - получение всех данных покупателя;  
 `clearBuyerData(): void` - очистка данных покупателя;  
-Для валидации необходим тип: `type ErrorsInBuyerData {
-  paymentType?: 'Необходимо указать вид оплаты';
-  address?: 'Необходимо указать адрес';
-  phoneNumber?: 'Необходимо указать номер телефона';
-  email?: 'Необходимо указать email';
+Для валидации необходим тип:   
+`type ErrorsInBuyerData {  
+  paymentType?: 'Необходимо указать вид оплаты';  
+  address?: 'Необходимо указать адрес';  
+  phoneNumber?: 'Необходимо указать номер телефона';  
+  email?: 'Необходимо указать email';  
 }`.   
 `validateBuyerData(paymentType: 'card' | 'cash' | '', address: string, phoneNumber: string, email: string): ErrorsInBuyerData | null` - валидация данных покупателя.  
