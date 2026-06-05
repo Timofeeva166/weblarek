@@ -138,15 +138,15 @@ interface IBuyer {
 }`
 
 Поля класса:  
-`products: IProduct[]`- хранит массив всех товаров;
+`products: IProduct[]`- хранит массив всех товаров;  
 `selectedProduct: IProduct | null`- хранит товар, выбранный для подробного отображения;
 
 Методы класса:
-`setProductsList(products: IProduct[]): void` - сохранение массива товаров, полученного в параметрах метода;
-`getProductsList(): IProduct[]` - получение массива товаров из модели;
-`getProductById(id: string): IProduct | undefined` - получение одного товара по его id;
-`setSelectedProduct(selectedProduct: IProduct): void` - сохранение выбранного товара для подробного отображения;
-`getSelectedProduct(): IProduct` - получение выбранного товара для подробного отображения.
+`setProductsList(products: IProduct[]): void` - сохранение массива товаров, полученного в параметрах метода;  
+`getProductsList(): IProduct[]` - получение массива товаров из модели;  
+`getProductById(id: string): IProduct | undefined` - получение одного товара по его id;  
+`setSelectedProduct(selectedProduct: IProduct): void` - сохранение выбранного товара для подробного отображения;  
+`getSelectedProduct(): IProduct` - получение выбранного товара для подробного отображения.  
 
 #### Класс Basket
 Осуществляет хранение товаров, которые пользователь выбрал для покупки.
@@ -160,13 +160,13 @@ interface IBuyer {
 `productsInBasket: IProduct[]`- хранит массив товаров, выбранных покупателем для покупки;
 
 Методы класса:
-`getProductsInBasket(): IProduct[]` - получение массива товаров, которые находятся в корзине;
-`addToBasket(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины;
-`removeFromBasket(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины;
-`clearBasket(): void` - очистка корзины;
-`getBasketPrice(): number` - получение стоимости всех товаров в корзине;
-`getBasketItemsAmount(): number` - получение количества товаров в корзине;
-`isProductInBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода;
+`getProductsInBasket(): IProduct[]` - получение массива товаров, которые находятся в корзине;  
+`addToBasket(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины;  
+`removeFromBasket(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины;  
+`clearBasket(): void` - очистка корзины;  
+`getBasketPrice(): number` - получение стоимости всех товаров в корзине;  
+`getBasketItemsAmount(): number` - получение количества товаров в корзине;  
+`isProductInBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода;  
 
 #### Класс Buyer
 Осуществляет хранение данных покупателя, которые тот указал при оформлении заказа.
@@ -180,22 +180,22 @@ interface IBuyer {
 }`
 
 Поля класса:  
-`paymentType: 'card' | 'cash' | ''`- хранит вид оплаты;
-`address: string`- хранит адреc;
-`phoneNumber: string`- хранит номер телефона;
-`email: string`- хранит email;
+`paymentType: 'card' | 'cash' | ''`- хранит вид оплаты;  
+`address: string`- хранит адреc;  
+`phoneNumber: string`- хранит номер телефона;  
+`email: string`- хранит email;  
 
 Методы класса:
-`setPaymentType(paymentType: 'card' | 'cash' | ''): void` - сохранение вида оплаты;
-`setAddress(address: string): void` - сохранение адреса;
-`setPhoneNumber(phoneNumber: string): void` - сохранение номера телефона;
-`setEmail(email: string): void` - сохранение email;
-`getBuyerData(): IBuyer` - получение всех данных покупателя;
-`clearBuyerData(): void` - очистка данных покупателя;
+`setPaymentType(paymentType: 'card' | 'cash' | ''): void` - сохранение вида оплаты;  
+`setAddress(address: string): void` - сохранение адреса;  
+`setPhoneNumber(phoneNumber: string): void` - сохранение номера телефона;  
+`setEmail(email: string): void` - сохранение email;  
+`getBuyerData(): IBuyer` - получение всех данных покупателя;  
+`clearBuyerData(): void` - очистка данных покупателя;  
 Для валидации необходим тип: `type ErrorsInBuyerData {
   paymentType?: 'Необходимо указать вид оплаты';
   address?: 'Необходимо указать адрес';
   phoneNumber?: 'Необходимо указать номер телефона';
   email?: 'Необходимо указать email';
-}`. 
-`validateBuyerData(paymentType: 'card' | 'cash' | '', address: string, phoneNumber: string, email: string): ErrorsInBuyerData | null` - валидация данных покупателя.
+}`.   
+`validateBuyerData(paymentType: 'card' | 'cash' | '', address: string, phoneNumber: string, email: string): ErrorsInBuyerData | null` - валидация данных покупателя.  
