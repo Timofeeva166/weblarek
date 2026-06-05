@@ -98,3 +98,104 @@ Presenter - презентер содержит основную логику п
 `emit<T extends object>(event: string, data?: T): void` - инициализация события. При вызове события в метод передается название события и объект с данными, который будет использован как аргумент для вызова обработчика.  
 `trigger<T extends object>(event: string, context?: Partial<T>): (data: T) => void` - возвращает функцию, при вызове которой инициализируется требуемое в параметрах событие с передачей в него данных из второго параметра.
 
+## Данные
+В приложении используются две сущности, которые описывают данные, — товар и покупатель. Их можно описать такими интерфейсами:
+
+#### Интерфейс товара
+
+```
+interface IProduct {
+  id: string;
+  description: string;
+  image: string;
+  title: string;
+  category: string;
+  price: number | null;
+}
+```
+
+#### Интерфейс покупателя
+
+```
+interface IBuyer {
+  payment: TPayment;
+  email: string;
+  phone: string;
+  address: string;
+}
+```
+
+## Модель данных
+Для учёта данных в приложении созданы три класса, которые разделены между собой по смыслу и зонам ответственности:
+
+#### Класс Catalog
+Осуществляет хранение товаров, которые можно купить в приложении.
+
+Конструктор:  
+`constructor(products: IProduct[]) {
+  this.products = products;
+  this.selectedProduct = null;
+}`
+
+Поля класса:  
+`products: IProduct[]`- хранит массив всех товаров;
+`selectedProduct: IProduct | null`- хранит товар, выбранный для подробного отображения;
+
+Методы класса:
+`setProductsList(products: IProduct[]): void` - сохранение массива товаров, полученного в параметрах метода;
+`getProductsList(): IProduct[]` - получение массива товаров из модели;
+`getProductById(id: string): IProduct | undefined` - получение одного товара по его id;
+`setSelectedProduct(product: IProduct): void` - сохранение выбранного товара для подробного отображения;
+`getSelectedProduct(): IProduct` - получение выбранного товара для подробного отображения.
+
+#### Класс Basket
+Осуществляет хранение товаров, которые пользователь выбрал для покупки.
+
+Конструктор:  
+`constructor() {
+  this.productsInBasket = [];
+}`
+
+Поля класса:  
+`productsInBasket: IProduct[]`- хранит массив товаров, выбранных покупателем для покупки;
+
+Методы класса:
+`getProductsInBasket(): IProduct[]` - получение массива товаров, которые находятся в корзине;
+`addToBasket(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины;
+`removeFromBasket(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины;
+`clearBasket(): void` - очистка корзины;
+`getBasketPrice(): number` - получение стоимости всех товаров в корзине;
+`getBasketItemsAmount(): number` - получение количества товаров в корзине;
+`inBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода;
+
+#### Класс Buyer
+Осуществляет хранение данных покупателя, которые тот указал при оформлении заказа.
+
+Конструктор:  
+`constructor() {
+  this.paymentType = '';
+  this.address = '';
+  this.phoneNumber = '';
+  this.email = '';
+}`
+
+Поля класса:  
+`paymentType: 'card' | 'cash' | ''`- хранит вид оплаты;
+`address: string`- хранит адреc;
+`phoneNumber: string`- хранит номер телефона;
+`email: string`- хранит email;
+
+Методы класса:
+`setPaymentType(paymentType: 'card' | 'cash' | ''): void` - сохранение вида оплаты;
+`setAddress(address: string): void` - сохранение адреса;
+`setPhoneNumber(phoneNumber: string): void` - сохранение номера телефона;
+`setEmail(email: string): void` - сохранение email;
+`getBuyerData(): IBuyer` - получение всех данных покупателя;
+`clearBuyerData(): void` - очистка данных покупателя;
+Для валидации необходим тип: `type ErrorsInBuyerData {
+  paymentType?: 'Необходимо указать вид оплаты';
+  address?: 'Необходимо указать адрес';
+  phoneNumber?: 'Необходимо указать номер телефона';
+  email?: 'Необходимо указать email'
+}`. 
+`validateBuyerData(paymentType: 'card' | 'cash' | '', address: string, phoneNumber: string, email: string): ErrorsInBuyerData | null` - валидация данных покупателя.
