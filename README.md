@@ -118,7 +118,7 @@ interface IProduct {
 
 ```
 interface IBuyer {
-  payment: TPayment;
+  payment: 'card' | 'cash' | '';
   email: string;
   phone: string;
   address: string;
@@ -133,8 +133,8 @@ interface IBuyer {
 
 Конструктор:  
 ```
-constructor(products: IProduct[]) {
-  this.products = products;
+constructor() {
+  this.products = [];
   this.selectedProduct = null;
 }
 ```
@@ -148,7 +148,7 @@ constructor(products: IProduct[]) {
 `getProductsList(): IProduct[]` - получение массива товаров из модели;  
 `getProductById(id: string): IProduct | undefined` - получение одного товара по его id;  
 `setSelectedProduct(selectedProduct: IProduct): void` - сохранение выбранного товара для подробного отображения;  
-`getSelectedProduct(): IProduct` - получение выбранного товара для подробного отображения.  
+`getSelectedProduct(): IProduct | null` - получение выбранного товара для подробного отображения.  
 
 #### Класс Basket
 Осуществляет хранение товаров, которые пользователь выбрал для покупки.
@@ -178,33 +178,33 @@ constructor() {
 Конструктор:  
 ```
 constructor() {
-  this.paymentType = '';
-  this.address = '';
-  this.phoneNumber = '';
+  this.payment = '';
   this.email = '';
+  this.phone = '';
+  this.address = '';
 }
 ```
 
 Поля класса:  
-`paymentType: 'card' | 'cash' | ''`- хранит вид оплаты;  
-`address: string`- хранит адреc;  
-`phoneNumber: string`- хранит номер телефона;  
-`email: string`- хранит email;  
+`payment: 'card' | 'cash' | ''`- хранит вид оплаты;  
+`email: string`- хранит email;   
+`phone: string`- хранит номер телефона;  
+`address: string`- хранит адреc;   
 
 Методы класса:  
-`setPaymentType(paymentType: 'card' | 'cash' | ''): void` - сохранение вида оплаты;  
-`setAddress(address: string): void` - сохранение адреса;  
-`setPhoneNumber(phoneNumber: string): void` - сохранение номера телефона;  
+`setPayment(payment: 'card' | 'cash' | ''): void` - сохранение вида оплаты;  
 `setEmail(email: string): void` - сохранение email;  
+`setPhone(phone: string): void` - сохранение номера телефона;  
+`setAddress(address: string): void` - сохранение адреса;  
 `getBuyerData(): IBuyer` - получение всех данных покупателя;  
 `clearBuyerData(): void` - очистка данных покупателя;  
 Для валидации необходим тип:
 ```
-type ErrorsInBuyerData {
-  paymentType?: 'Необходимо указать вид оплаты';
-  address?: 'Необходимо указать адрес';
-  phoneNumber?: 'Необходимо указать номер телефона';
-  email?: 'Необходимо указать email';
+type ErrorsInBuyerData = {
+  payment?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
 }
 ```     
-`validateBuyerData(paymentType: 'card' | 'cash' | '', address: string, phoneNumber: string, email: string): ErrorsInBuyerData | null` - валидация данных покупателя.  
+`validateBuyerData(): ErrorsInBuyerData | null` - валидация данных покупателя.  
