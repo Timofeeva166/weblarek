@@ -1,14 +1,7 @@
-import { IBuyer } from "../../types";
-
-type ErrorsInBuyerData = {
-  payment?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-}
+import { IBuyer , TErrorsInBuyerData, TPayment } from "../../types";
 
 export class Buyer {
-  payment: 'card' | 'cash' | '';
+  payment: TPayment;
   email: string;
   phone: string;
   address: string;
@@ -20,7 +13,7 @@ export class Buyer {
     this.address = '';
   }
 
-  setPayment(payment: 'card' | 'cash' | ''): void {
+  setPayment(payment: TPayment): void {
     this.payment = payment;
   }
 
@@ -52,8 +45,8 @@ export class Buyer {
     this.address = '';
   }
 
-  validateBuyerData(): ErrorsInBuyerData | null {
-    const errors: ErrorsInBuyerData = {};
+  validateBuyerData(): TErrorsInBuyerData | null {
+    const errors: TErrorsInBuyerData = {};
 
     if (this.payment === '') {
       errors.payment = 'Необходимо указать вид оплаты';

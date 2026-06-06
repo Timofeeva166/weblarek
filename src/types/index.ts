@@ -15,23 +15,32 @@ export interface IProduct {
 }
 
 export interface IBuyer {
-  payment: 'card' | 'cash' | '';
+  payment: TPayment;
   email: string;
   phone: string;
   address: string;
 }
 
-export type ProductsResponse = {
+export type TErrorsInBuyerData = {
+  payment?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+}
+
+export type TPayment = 'card' | 'cash' | '';
+
+export type TProductsResponse = {
     total: number;
     items: IProduct[];
 }
 
-export type OrderRequest = IBuyer & {
+export type TOrderRequest = IBuyer & {
     total: number;
     items: string[];
 }
 
-export type OrderResponse = {
+export type TOrderResponse = {
     id: string;
     total: number;
 }

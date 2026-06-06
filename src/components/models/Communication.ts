@@ -1,4 +1,4 @@
-import { IApi, ProductsResponse, OrderRequest, OrderResponse} from "../../types";
+import { IApi, TProductsResponse, TOrderRequest, TOrderResponse} from "../../types";
 
 export class Communication {
   api: IApi;
@@ -7,11 +7,11 @@ export class Communication {
     this.api = api;
   }
 
-  getProducts(): Promise<ProductsResponse> {
-    return this.api.get<ProductsResponse>("/product");
+  getProducts(): Promise<TProductsResponse> {
+    return this.api.get<TProductsResponse>("/product");
   }
 
-  postOrder(orderData: OrderRequest): Promise<OrderResponse> {
-    return this.api.post<OrderResponse>("/order", orderData);
+  postOrder(orderData: TOrderRequest): Promise<TOrderResponse> {
+    return this.api.post<TOrderResponse>("/order", orderData);
   }
 }

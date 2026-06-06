@@ -118,7 +118,7 @@ interface IProduct {
 
 ```
 interface IBuyer {
-  payment: 'card' | 'cash' | '';
+  payment: TPayment;
   email: string;
   phone: string;
   address: string;
@@ -186,13 +186,13 @@ constructor() {
 ```
 
 Поля класса:  
-`payment: 'card' | 'cash' | ''`- хранит вид оплаты;  
+`payment: TPayment`- хранит вид оплаты;  
 `email: string`- хранит email;   
 `phone: string`- хранит номер телефона;  
 `address: string`- хранит адреc;   
 
 Методы класса:  
-`setPayment(payment: 'card' | 'cash' | ''): void` - сохранение вида оплаты;  
+`setPayment(payment: TPayment): void` - сохранение вида оплаты;  
 `setEmail(email: string): void` - сохранение email;  
 `setPhone(phone: string): void` - сохранение номера телефона;  
 `setAddress(address: string): void` - сохранение адреса;  
