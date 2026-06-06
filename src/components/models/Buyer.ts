@@ -1,13 +1,13 @@
 import { IBuyer , TErrorsInBuyerData, TPayment } from "../../types";
 
 export class Buyer {
-  payment: TPayment;
-  email: string;
-  phone: string;
-  address: string;
+  private payment: TPayment | null;
+  private email: string;
+  private phone: string;
+  private address: string;
 
   constructor() {
-    this.payment = '';
+    this.payment = null;
     this.email = '';
     this.phone = '';
     this.address = '';
@@ -39,16 +39,16 @@ export class Buyer {
   }
 
   clearBuyerData(): void {
-    this.payment = '';
+    this.payment = null;
     this.email = '';
     this.phone = '';
     this.address = '';
   }
 
-  validateBuyerData(): TErrorsInBuyerData | null {
+  validateBuyerData(): TErrorsInBuyerData {
     const errors: TErrorsInBuyerData = {};
 
-    if (this.payment === '') {
+    if (this.payment === null) {
       errors.payment = 'Необходимо указать вид оплаты';
     }
 
@@ -64,6 +64,6 @@ export class Buyer {
       errors.address = 'Необходимо указать адрес';
     }
     
-    return Object.keys(errors).length > 0 ? errors : null;
+    return errors;
   }
 }

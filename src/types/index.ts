@@ -15,20 +15,15 @@ export interface IProduct {
 }
 
 export interface IBuyer {
-  payment: TPayment;
+  payment: TPayment | null;
   email: string;
   phone: string;
   address: string;
 }
 
-export type TErrorsInBuyerData = {
-  payment?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-}
+export type TErrorsInBuyerData= Partial<Record<keyof IBuyer, string>>;
 
-export type TPayment = 'card' | 'cash' | '';
+export type TPayment = 'card' | 'cash';
 
 export type TProductsResponse = {
     total: number;

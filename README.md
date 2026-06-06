@@ -140,8 +140,8 @@ constructor() {
 ```
 
 Поля класса:  
-`products: IProduct[]`- хранит массив всех товаров;  
-`selectedProduct: IProduct | null`- хранит товар, выбранный для подробного отображения;
+`private products: IProduct[]`- хранит массив всех товаров;  
+`private selectedProduct: IProduct | null`- хранит товар, выбранный для подробного отображения;
 
 Методы класса:  
 `setProductsList(products: IProduct[]): void` - сохранение массива товаров, полученного в параметрах метода;  
@@ -161,7 +161,7 @@ constructor() {
 ```
 
 Поля класса:  
-`productsInBasket: IProduct[]`- хранит массив товаров, выбранных покупателем для покупки;
+`private productsInBasket: IProduct[]`- хранит массив товаров, выбранных покупателем для покупки;
 
 Методы класса:  
 `getProductsInBasket(): IProduct[]` - получение массива товаров, которые находятся в корзине;  
@@ -186,10 +186,10 @@ constructor() {
 ```
 
 Поля класса:  
-`payment: TPayment`- хранит вид оплаты;  
-`email: string`- хранит email;   
-`phone: string`- хранит номер телефона;  
-`address: string`- хранит адреc;   
+`private payment: TPayment`- хранит вид оплаты;  
+`private email: string`- хранит email;   
+`private phone: string`- хранит номер телефона;  
+`private address: string`- хранит адреc;   
 
 Методы класса:  
 `setPayment(payment: TPayment): void` - сохранение вида оплаты;  
@@ -222,8 +222,8 @@ constructor(api: Api) {
 ```
 
 Поля класса:  
-`api: Api` - хранит экземпляр класса Api
+`private api: IApi` - хранит экземпляр класса Api
 
 Методы класса:  
-`getProducts(): Promise<TProductsResponse>` - получение объекта с количеством товаров и массивом товаров с сервера;  
-`postOrder(orderData: TOrderRequest): Promise<TOrderResponse>` - отправка данных о выбранных товарах и покупателе на сервер.
+`getProducts(): Promise<IProductFromApi>` - получение объекта с количеством товаров и массивом товаров с сервера;  
+`postOrder(orderInfo: IBuyerFromApi): void` - отправка данных о выбранных товарах и покупателе на сервер.

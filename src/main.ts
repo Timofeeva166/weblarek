@@ -3,7 +3,7 @@ import { Catalog } from './components/models/Catalog';
 import { Basket } from './components/models/Basket';
 import { Buyer } from './components/models/Buyer';
 import { apiProducts } from './utils/data';
-import { Communication } from './components/models/Communication';
+import { Communication } from './components/services/Communication';
 import { Api } from './components/base/Api';
 import { API_URL } from './utils/constants';
 
@@ -76,11 +76,15 @@ console.log("Данные пользователя после очистки: ",
 
 //API
 console.log("ПРОВЕРКА API")
-const getCatalog = async() =>  {
-  const communicationModel = new Communication(new Api(API_URL)); //новый экземпляр класса
-  const response = await communicationModel.getProducts(); //получаем данные с сервера
-  productsModel.setProductsList(response.items); //берем массив товаров и устанавливаем
-  console.log("Товары из каталога (через сервер):", productsModel.getProductsList()); //получаем сформированный список
+const getCatalog = async() => {
+  try {
+    const communicationModel = new Communication(new Api(API_URL)); //новый экземпляр класса
+    const response = await communicationModel.getProducts(); //получаем данные с сервера
+    productsModel.setProductsList(response.items); //берем массив товаров и устанавливаем
+    console.log("Товары из каталога (через сервер):", productsModel.getProductsList()); //получаем сформированный список
+  } catch (error) {
+    console.error("Ошибка при получении каталога:", error);
+  }
 }
 
 getCatalog();

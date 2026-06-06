@@ -1,8 +1,8 @@
 import { IProduct } from "../../types";
 
 export class Catalog {
-  products: IProduct[];
-  selectedProduct: IProduct | null;
+  private products: IProduct[];
+  private selectedProduct: IProduct | null;
 
   constructor() {
     this.products = [];

@@ -1,7 +1,7 @@
 import { IApi, TProductsResponse, TOrderRequest, TOrderResponse} from "../../types";
 
 export class Communication {
-  api: IApi;
+  private api: IApi;
 
   constructor(api: IApi) {
     this.api = api;
