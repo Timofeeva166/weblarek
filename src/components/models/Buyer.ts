@@ -8,7 +8,6 @@ type ErrorsInBuyerData = {
 }
 
 export class Buyer {
-
   payment: 'card' | 'cash' | '';
   email: string;
   phone: string;
