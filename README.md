@@ -221,9 +221,9 @@ constructor(api: Api) {
 }
 ```
 
-Поля класса:
+Поля класса:  
 `api: Api` - хранит экземпляр класса Api
 
-Методы класса:
-`getProducts(): Promise<IProductFromApi>` - получение товаров с сервера;
+Методы класса:  
+`getProducts(): Promise<IProductFromApi>` - получение объекта с количеством товаров и массивом товаров с сервера;  
 `postOrder(orderInfo: IBuyerFromApi): void` - отправка данных о выбранных товарах и покупателе на сервер.
