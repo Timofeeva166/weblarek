@@ -225,5 +225,5 @@ constructor(api: Api) {
 `api: Api` - хранит экземпляр класса Api
 
 Методы класса:  
-`getProducts(): Promise<IProductFromApi>` - получение объекта с количеством товаров и массивом товаров с сервера;  
-`postOrder(orderInfo: IBuyerFromApi): void` - отправка данных о выбранных товарах и покупателе на сервер.
+`getProducts(): Promise<TProductsResponse>` - получение объекта с количеством товаров и массивом товаров с сервера;  
+`postOrder(orderData: TOrderRequest): Promise<TOrderResponse>` - отправка данных о выбранных товарах и покупателе на сервер.
