@@ -21,7 +21,7 @@ export class Basket {
   removeFromBasket(product: IProduct): void {
     const isProductInBasket = this.isProductInBasket(product.id);
     if (isProductInBasket) {
-      this.productsInBasket.filter(item=> item.id !== product.id);
+      this.productsInBasket = this.productsInBasket.filter(item => item !== product);
     }
   }
 
