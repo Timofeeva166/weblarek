@@ -170,7 +170,7 @@ constructor() {
 `clearBasket(): void` - очистка корзины;  
 `getBasketPrice(): number` - получение стоимости всех товаров в корзине;  
 `getBasketItemsAmount(): number` - получение количества товаров в корзине;  
-`isProductInBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода;  
+`isProductInBasket(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода.  
 
 #### Класс Buyer
 Осуществляет хранение данных покупателя, которые тот указал при оформлении заказа.
@@ -208,3 +208,22 @@ type ErrorsInBuyerData = {
 }
 ```     
 `validateBuyerData(): ErrorsInBuyerData | null` - валидация данных покупателя.  
+
+## Слой коммуникации
+
+#### Класс Communication
+Использует композицию, чтобы выполнить запрос на сервер с помощью метода get класса Api и получает с сервера объект с массивом товаров.
+
+Конструктор:  
+```
+constructor(api: Api) {
+  this.api = api;
+}
+```
+
+Поля класса:
+`api: Api` - хранит экземпляр класса Api
+
+Методы класса:
+`getProducts(): Promise<IProductFromApi>` - получение товаров с сервера;
+`postOrder(orderInfo: IBuyerFromApi): void` - отправка данных о выбранных товарах и покупателе на сервер.

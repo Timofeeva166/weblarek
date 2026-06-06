@@ -20,3 +20,18 @@ export interface IBuyer {
   phone: string;
   address: string;
 }
+
+export type ProductsResponse = {
+    total: number;
+    items: IProduct[];
+}
+
+export type OrderRequest = IBuyer & {
+    total: number;
+    items: string[];
+}
+
+export type OrderResponse = {
+    id: string;
+    total: number;
+}
