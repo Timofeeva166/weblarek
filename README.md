@@ -200,14 +200,9 @@ constructor() {
 `clearBuyerData(): void` - очистка данных покупателя;  
 Для валидации необходим тип:
 ```
-type ErrorsInBuyerData = {
-  payment?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-}
+type TErrorsInBuyerData= Partial<Record<keyof IBuyer, string>>
 ```     
-`validateBuyerData(): ErrorsInBuyerData | null` - валидация данных покупателя.  
+`validateBuyerData(): TErrorsInBuyerData | null` - валидация данных покупателя.  
 
 ## Слой коммуникации
 

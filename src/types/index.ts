@@ -39,3 +39,7 @@ export type TOrderResponse = {
     id: string;
     total: number;
 }
+
+export interface ICardActions {
+    onClick: () => void;
+}
