@@ -5,7 +5,7 @@ interface IModal {
   content: HTMLElement;
 }
 
-export class ModalWindow extends Component<IModal> {
+export class Modal extends Component<IModal> {
   private closeBtn: HTMLButtonElement;
   private modalContent: HTMLElement;
 

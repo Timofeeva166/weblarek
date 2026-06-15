@@ -5,7 +5,7 @@ interface ISuccess {
   debited: number;
 }
 
-export class OrderSuccess extends Component<ISuccess> {
+export class SuccessModal extends Component<ISuccess> {
   private debitedElement: HTMLElement;
   private successCloseBtn: HTMLButtonElement;
 
