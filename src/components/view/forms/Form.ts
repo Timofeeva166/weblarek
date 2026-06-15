@@ -1,6 +1,5 @@
 import { Component } from "../../base/Component";
 import { ensureElement } from "../../../utils/utils";
-import { ICardActions } from "../../../types";
 
 interface IForm {
   formErrors: string;
