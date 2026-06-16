@@ -1,6 +1,7 @@
 import { ensureElement } from "../../../utils/utils";
 import { Card } from "./Card";
 import { ICardActions } from "../../../types";
+import { categoryMap, CDN_URL } from "../../../utils/constants";
 
 interface ICardPreview {
   category: string;
@@ -30,10 +31,18 @@ export class CardPreview extends Card<ICardPreview> {
 
   set category(value: string) {
     this.categoryElement.textContent = value;
+
+    //добавляем цвет в зависимости от катгории
+    this.categoryElement.className = 'card__category';
+    const categoryType = categoryMap[value as keyof typeof categoryMap];
+    
+    if (categoryType) {
+      this.categoryElement.classList.add(categoryType);
+    }
   }
 
   set image(value: string) {
-    this.setImage(this.imageElement, value, this.title);
+    this.setImage(this.imageElement, CDN_URL + value, this.title);
   }
 
   set description(value: string) {
@@ -42,5 +51,20 @@ export class CardPreview extends Card<ICardPreview> {
 
   set textOnBtn(value: string){
     this.previewBtn.textContent = value;
+  }
+
+  isAddToBasketEnabled(value: boolean) {
+    this.previewBtn.disabled = !value;
+    if (value === false) {
+      this.previewBtn.textContent = 'Недоступно';
+    }
+  }
+
+  isInBasket(value: boolean) {
+    if (value === true) {
+      this.textOnBtn = 'Удалить из корзины';
+    } else {
+      this.textOnBtn = 'Купить';
+    }
   }
 }

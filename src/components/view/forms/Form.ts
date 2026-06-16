@@ -14,9 +14,17 @@ export abstract class Form<T> extends Component<IForm & T> {
 
     this.formErrorsElement = ensureElement<HTMLButtonElement>(".form__errors", this.container);
     this.submitBtn = ensureElement<HTMLButtonElement>(".button[type=submit]", this.container);
+
+    this.submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+    })
   }
 
   set formErrors(value: string) {
     this.formErrorsElement.textContent = value;
+  }
+
+  isNextAllowed(value: boolean) {
+    this.submitBtn.disabled = !value;
   }
 }
