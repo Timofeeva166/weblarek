@@ -16,6 +16,7 @@ export class SuccessModal extends Component<ISuccess> {
     this.totalElement = ensureElement<HTMLElement>(".order-success__description", this.container);
     this.successCloseBtn = ensureElement<HTMLButtonElement>(".order-success__close",this.container);
 
+    //закрываем по клику на кнопку
     this.successCloseBtn.addEventListener('click', () => {
       this.events.emit('modal:close');
     })

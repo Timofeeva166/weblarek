@@ -128,7 +128,7 @@ events.on('basket:change', () => {
       cloneTemplate<HTMLElement>('#card-basket'), //как контейнер выступает шаблон card-basket
       {onClick: () => events.emit('basket:removeProduct', item)} //при клике убираем продукт
     );
-    itemIndex++; //порядковы номер товара в корзине
+    itemIndex++; //порядковый номер товара в корзине
     cardInBasket.itemIndex = itemIndex;
     return cardInBasket.render(item); //рендерим по данным из пункта 
   })
@@ -138,7 +138,7 @@ events.on('basket:change', () => {
   header.basketCounter = basketModel.getBasketItemsAmount();
 
   //дизейблим кнопку при необходимости
-  if (basketModel.getBasketPrice() === 0) {
+  if (basketModel.getBasketItemsAmount() === 0) {
     basketModal.isOrderEnabled(false);
   } else {
     basketModal.isOrderEnabled(true);
@@ -232,9 +232,8 @@ events.on('contactsForm:change', () => {
 
   const errorsInContacts = buyerModel.validateBuyerData();
   let errorsText: string = "";
-
-  console.log(errorsInContacts);
   
+  //текст ошибки
   if (errorsInContacts.email && errorsInContacts.phone) {
     errorsText = `${errorsInContacts.email}, ${errorsInContacts.phone}`;
   }  else if (errorsInContacts.phone) {
@@ -245,6 +244,7 @@ events.on('contactsForm:change', () => {
 
   contactsForm.formErrors = errorsText;
 
+  //дизейблим ли кнопку
   if(!errorsInContacts.email && !errorsInContacts.phone) {
     contactsForm.isNextAllowed(true);
   } else {
