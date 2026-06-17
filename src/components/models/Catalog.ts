@@ -8,7 +8,6 @@ export class Catalog {
   constructor(protected events: IEvents) {
     this.products = [];
     this.selectedProduct = null;
-
     this.events = events;
   }
 
