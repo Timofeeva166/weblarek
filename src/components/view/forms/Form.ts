@@ -26,7 +26,7 @@ export abstract class Form<T> extends Component<IForm & T> {
   }
 
   //дизейбл кнопки если есть ошибки
-  isNextAllowed(value: boolean) {
+  isNextAllowed(value: boolean): void {
     this.submitBtn.disabled = !value;
   }
 }

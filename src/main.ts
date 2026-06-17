@@ -63,7 +63,7 @@ events.on("catalog:setProductsList", () => {
   const cardsList = productsModel.getProductsList().map((item) => {
     const cardInCatalog = new CardInCatalog( //создаем новый экземпляр карточки
       cloneTemplate<HTMLElement>('#card-catalog'), //как контейнер выступает шаблон card-catalog
-      {onClick: () => events.emit('catalog:setSelectedProduct', item)} //при клике устанавливаем выбранный продукт
+      {onClick: () => events.emit('catalog:selectProduct', item)} //при клике устанавливаем выбранный продукт
     );
     return cardInCatalog.render(item); //рендерим по данным из пункта и ставим в массив
   })
@@ -71,7 +71,7 @@ events.on("catalog:setProductsList", () => {
 });
 
 //клик по карточке - устанавливаем выбранный товар
-events.on('catalog:setSelectedProduct', (product: IProduct) => {
+events.on('catalog:selectProduct', (product: IProduct) => {
   productsModel.setSelectedProduct(product);
 });
 
@@ -132,9 +132,17 @@ events.on('basket:change', () => {
     cardInBasket.itemIndex = itemIndex;
     return cardInBasket.render(item); //рендерим по данным из пункта 
   })
+
   basketModal.items = cardsList;
   basketModal.totalPrice = basketModel.getBasketPrice();
   header.basketCounter = basketModel.getBasketItemsAmount();
+
+  //дизейблим кнопку при необходимости
+  if (basketModel.getBasketPrice() === 0) {
+    basketModal.isOrderEnabled(false);
+  } else {
+    basketModal.isOrderEnabled(true);
+  }
 });
 
 //открыть корзину

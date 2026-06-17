@@ -14,7 +14,7 @@ export class CardPreview extends Card<ICardPreview> {
   private categoryElement: HTMLElement;
   private imageElement: HTMLImageElement;
   private descriptionElement: HTMLElement;
-  private previewBtn: HTMLButtonElement;
+  private actionsWithBasketBtn: HTMLButtonElement;
 
   constructor(container: HTMLElement, actions?: ICardActions) {
     super(container);
@@ -22,11 +22,11 @@ export class CardPreview extends Card<ICardPreview> {
     this.categoryElement = ensureElement<HTMLElement>(".card__category", this.container);
     this.imageElement = ensureElement<HTMLImageElement>(".card__image", this.container);
     this.descriptionElement = ensureElement<HTMLElement>(".card__text", this.container);
-    this.previewBtn = ensureElement<HTMLButtonElement>(".card__button", this.container);
+    this.actionsWithBasketBtn = ensureElement<HTMLButtonElement>(".card__button", this.container);
 
     //Добавляем/удаляем из корзины по клику
     if(actions?.onClick) {
-      this.previewBtn.addEventListener('click', actions.onClick)
+      this.actionsWithBasketBtn.addEventListener('click', actions.onClick)
     }
   }
 
@@ -50,20 +50,20 @@ export class CardPreview extends Card<ICardPreview> {
     this.descriptionElement.textContent = value;
   }
 
-  set textOnBtn(value: string){
-    this.previewBtn.textContent = value;
+  set textOnBtn(value: string) {
+    this.actionsWithBasketBtn.textContent = value;
   }
 
   //изменение текста и дизейбл если недоступно для добавления
-  isAddToBasketEnabled(value: boolean) {
-    this.previewBtn.disabled = !value;
+  isAddToBasketEnabled(value: boolean): void {
+    this.actionsWithBasketBtn.disabled = !value;
     if (value === false) {
-      this.previewBtn.textContent = 'Недоступно';
+      this.actionsWithBasketBtn.textContent = 'Недоступно';
     }
   }
 
   //изменение текста в зависимости от того, есть ли товар в корзине
-  isInBasket(value: boolean) {
+  isInBasket(value: boolean): void {
     if (value === true) {
       this.textOnBtn = 'Удалить из корзины';
     } else {

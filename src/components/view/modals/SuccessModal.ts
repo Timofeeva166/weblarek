@@ -3,17 +3,17 @@ import { ensureElement } from "../../../utils/utils";
 import { IEvents } from "../../base/Events";
 
 interface ISuccess {
-  debited: number;
+  total: number;
 }
 
 export class SuccessModal extends Component<ISuccess> {
-  private debitedElement: HTMLElement;
+  private totalElement: HTMLElement;
   private successCloseBtn: HTMLButtonElement;
 
   constructor(protected events: IEvents, container: HTMLElement) {
     super(container);
     
-    this.debitedElement = ensureElement<HTMLElement>(".order-success__description", this.container);
+    this.totalElement = ensureElement<HTMLElement>(".order-success__description", this.container);
     this.successCloseBtn = ensureElement<HTMLButtonElement>(".order-success__close",this.container);
 
     this.successCloseBtn.addEventListener('click', () => {
@@ -22,6 +22,6 @@ export class SuccessModal extends Component<ISuccess> {
   }
 
   set total(value: number) {
-    this.debitedElement.textContent = `Списано ${value} синапсов`;
+    this.totalElement.textContent = `Списано ${value} синапсов`;
   }
 }

@@ -34,7 +34,7 @@ export class BasketModal extends Component<IBasketModal> {
     this.totalPriceElement.textContent = `${value} синапсов`;
   }
 
-  isOrderEnabled(value: boolean) {
+  isOrderEnabled(value: boolean): void {
     this.placeOrderBtn.disabled = !value;
   }
 }
