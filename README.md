@@ -654,24 +654,24 @@ constructor(protected events: IEvents, container: HTMLElement) {
 5. Представление отображает изменения в интерфейсе
 
 #### События модели данных:
-`catalog:setProductsList` - обновить список товаров
-`preview:showPreview` - показать пользователю превью
-`basket:change` - изменение корзины
-`orderForm:change` - изменить форму способа оплаты и адреса
-`contactsForm:change` - изменить форму контактов
-`buyer:clear` - очистить данные пользователя
+`catalog:setProductsList` - обновить список товаров  
+`preview:showPreview` - показать пользователю превью  
+`basket:change` - изменение корзины  
+`orderForm:change` - изменить форму способа оплаты и адреса  
+`contactsForm:change` - изменить форму контактов  
+`buyer:clear` - очистить данные пользователя  
 
 #### События представления:
-`catalog:selectProduct` - пользователь кликнул по карточке товара
-`modal:close` - пользователь скрыл модальное окно
-`preview:actionWithBasket` - пользователь добавил/убрал товар из корзины
-`basket:open` - пользователь открыл корзину
-`basket:removeProduct` - пользователь убрал продукт из корзины
-`orderForm:open` - пользователь открыл форму способа оплаты и адреса
-`orderForm:payByCard` - пользователь выбрал способ оплаты (карта)
-`orderForm:payByCash` - пользователь выбрал способ оплаты (наличные)
-`orderForm:setAddress` - пользователь изменил адрес
-`contactsForm:open` - пользователь открыл форму контактов
-`contactsForm:setEmail` - пользователь изменил email
-`contactsForm:setPhone` - пользователь изменил телефон
-`contactsForm:submit` - пользователь отправил данные на сервер
+`catalog:selectProduct` - пользователь кликнул по карточке товара  
+`modal:close` - пользователь скрыл модальное окно  
+`preview:actionWithBasket` - пользователь добавил/убрал товар из корзины  
+`basket:open` - пользователь открыл корзину  
+`basket:removeProduct` - пользователь убрал продукт из корзины  
+`orderForm:open` - пользователь открыл форму способа оплаты и адреса  
+`orderForm:payByCard` - пользователь выбрал способ оплаты (карта)  
+`orderForm:payByCash` - пользователь выбрал способ оплаты (наличные)  
+`orderForm:setAddress` - пользователь изменил адрес  
+`contactsForm:open` - пользователь открыл форму контактов  
+`contactsForm:setEmail` - пользователь изменил email  
+`contactsForm:setPhone` - пользователь изменил телефон  
+`contactsForm:submit` - пользователь отправил данные на сервер  
