@@ -15,6 +15,7 @@ export abstract class Form<T> extends Component<IForm & T> {
     this.formErrorsElement = ensureElement<HTMLButtonElement>(".form__errors", this.container);
     this.submitBtn = ensureElement<HTMLButtonElement>(".button[type=submit]", this.container);
 
+    //отключаем перезагрузку страницы
     this.submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
     })
@@ -24,6 +25,7 @@ export abstract class Form<T> extends Component<IForm & T> {
     this.formErrorsElement.textContent = value;
   }
 
+  //дизейбл кнопки если есть ошибки
   isNextAllowed(value: boolean) {
     this.submitBtn.disabled = !value;
   }

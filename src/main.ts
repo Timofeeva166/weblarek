@@ -2,7 +2,6 @@ import './scss/styles.scss';
 import { Catalog } from './components/models/Catalog';
 import { Basket } from './components/models/Basket';
 import { Buyer } from './components/models/Buyer';
-import { apiProducts } from './utils/data';
 import { Communication } from './components/services/Communication';
 import { Api } from './components/base/Api';
 import { API_URL } from './utils/constants';
@@ -66,7 +65,7 @@ events.on("catalog:setProductsList", () => {
       cloneTemplate<HTMLElement>('#card-catalog'), //как контейнер выступает шаблон card-catalog
       {onClick: () => events.emit('catalog:setSelectedProduct', item)} //при клике устанавливаем выбранный продукт
     );
-    return cardInCatalog.render(item); //рендерим по данным из пункта 
+    return cardInCatalog.render(item); //рендерим по данным из пункта и ставим в массив
   })
   catalog.catalog = cardsList;
 });
@@ -127,9 +126,9 @@ events.on('basket:change', () => {
   const cardsList = basketModel.getProductsInBasket().map((item) => {
     const cardInBasket = new CardInBasket( //создаем новый экземпляр карточки
       cloneTemplate<HTMLElement>('#card-basket'), //как контейнер выступает шаблон card-basket
-      {onClick: () => events.emit('basket:removeProduct', item)} //при клике устанавливаем выбранный продукт
+      {onClick: () => events.emit('basket:removeProduct', item)} //при клике убираем продукт
     );
-    itemIndex++;
+    itemIndex++; //порядковы номер товара в корзине
     cardInBasket.itemIndex = itemIndex;
     return cardInBasket.render(item); //рендерим по данным из пункта 
   })
@@ -158,7 +157,6 @@ events.on('basket:removeProduct', (product: IProduct) => {
 //--ФОРМА ЗАКАЗА--
 //открыть форму заказа
 events.on('orderForm:open', () => {
-  console.log('open')
   modal.content = orderForm.render();
 });
 
@@ -184,6 +182,7 @@ events.on('orderForm:change', () => {
   const errorsInOrder = buyerModel.validateBuyerData();
   let errorsText: string = "";
   
+  //текст ошибки
   if (errorsInOrder.payment && errorsInOrder.address) {
     errorsText = `${errorsInOrder.payment}, ${errorsInOrder.address}`;
   }  else if (errorsInOrder.address) {
@@ -194,6 +193,7 @@ events.on('orderForm:change', () => {
 
   orderForm.formErrors = errorsText;
 
+  //дизейблим ли кнопку
   if(!errorsInOrder.payment && !errorsInOrder.address) {
     orderForm.isNextAllowed(true);
   } else {
@@ -254,7 +254,7 @@ events.on('contactsForm:submit', async () => {
   }
 
   try {
-    const response = await communicationModel.postOrder(requestBody);
+    const response: TOrderResponse = await communicationModel.postOrder(requestBody);
     buyerModel.clearBuyerData();
     basketModel.clearBasket();
 

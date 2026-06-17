@@ -18,6 +18,7 @@ export class CardInCatalog extends Card<ICardInCatalog> {
     this.categoryElement = ensureElement<HTMLElement>(".card__category", this.container);
     this.imageElement = ensureElement<HTMLImageElement>(".card__image", this.container);
 
+    //устанавливаем выбранный продукт по клику
     if(actions?.onClick) {
       this.container.addEventListener('click', actions.onClick)
     }

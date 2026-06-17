@@ -24,6 +24,7 @@ export class CardPreview extends Card<ICardPreview> {
     this.descriptionElement = ensureElement<HTMLElement>(".card__text", this.container);
     this.previewBtn = ensureElement<HTMLButtonElement>(".card__button", this.container);
 
+    //Добавляем/удаляем из корзины по клику
     if(actions?.onClick) {
       this.previewBtn.addEventListener('click', actions.onClick)
     }
@@ -53,6 +54,7 @@ export class CardPreview extends Card<ICardPreview> {
     this.previewBtn.textContent = value;
   }
 
+  //изменение текста и дизейбл если недоступно для добавления
   isAddToBasketEnabled(value: boolean) {
     this.previewBtn.disabled = !value;
     if (value === false) {
@@ -60,6 +62,7 @@ export class CardPreview extends Card<ICardPreview> {
     }
   }
 
+  //изменение текста в зависимости от того, есть ли товар в корзине
   isInBasket(value: boolean) {
     if (value === true) {
       this.textOnBtn = 'Удалить из корзины';
