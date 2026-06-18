@@ -414,8 +414,7 @@ constructor(container: HTMLElement, actions?: ICardActions) {
 `set image(value: string)` - установить изображение товара;  
 `set description(value: string)` - установить описание товара;   
 `set textOnBtn(value: string)` - установить текст на кнопке;   
-`isAddToBasketEnabled(value: boolean): void` - определяет кликабельность кнопки для добавления в корзину;   
-`isInBasket(value: boolean): void` - устанавливает тект на кнопке в зависимости от того, есть ли товар в корзине;  
+`set btnAvailable(value: boolean)` - установить кликабельность кнопки;   
 
 #### Абстрактный класс Form
 Базовый класс для форм.
@@ -556,12 +555,12 @@ constructor(protected events: IEvents, container: HTMLElement) {
   this.modalContent = ensureElement<HTMLElement>(".modal__content", this.container);
 
   this.closeBtn.addEventListener('click', () => {
-    this.events.emit('modal:close');
+    this.closeModal();
   });
 
   this.container.addEventListener("click", (e) => {
     if (e.target === this.container) {
-      this.events.emit("modal:close");
+      this.closeModal();
     }
   });
 }
@@ -624,15 +623,15 @@ interface ISuccess {
 
 Конструктор:  
 ```
-constructor(protected events: IEvents, container: HTMLElement) {
+constructor(container: HTMLElement, actions?: ICardActions) {
   super(container);
     
   this.totalElement = ensureElement<HTMLElement>(".order-success__description", this.container);
   this.successCloseBtn = ensureElement<HTMLButtonElement>(".order-success__close",this.container);
 
-  this.successCloseBtn.addEventListener('click', () => {
-    this.events.emit('modal:close');
-  })
+  if(actions?.onClick) {
+    this.successCloseBtn.addEventListener('click', actions.onClick);
+  }
 }
 ```
 
@@ -663,7 +662,6 @@ constructor(protected events: IEvents, container: HTMLElement) {
 
 #### События представления:
 `catalog:selectProduct` - пользователь кликнул по карточке товара  
-`modal:close` - пользователь скрыл модальное окно  
 `preview:actionWithBasket` - пользователь добавил/убрал товар из корзины  
 `basket:open` - пользователь открыл корзину  
 `basket:removeProduct` - пользователь убрал продукт из корзины  

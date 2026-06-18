@@ -43,7 +43,8 @@ const orderForm = new OrderForm(events, cloneTemplate<HTMLElement>('#order'))
 //VIEW МОДАЛКИ
 const modal = new Modal(events, ensureElement<HTMLElement>(".modal"));
 const basketModal = new BasketModal(events, cloneTemplate<HTMLElement>('#basket'));
-const successModal = new SuccessModal(events, cloneTemplate<HTMLElement>('#success'))
+const successModal = new SuccessModal(cloneTemplate<HTMLElement>('#success'),
+{onClick: () => modal.closeModal()});
 
 //Получаем продукты с сервера
 const getCatalog = async() => {
@@ -75,30 +76,24 @@ events.on('catalog:selectProduct', (product: IProduct) => {
   productsModel.setSelectedProduct(product);
 });
 
-//--МОДАЛКА--
-//закрыть модалку (по клику на крест и вне)
-events.on('modal:close', () => {
-  modal.closeModal();
-});
-
 //--ПРЕВЬЮ--
 //показываем превьюшку карточки после того, как установили
 events.on('preview:showPreview', () => {
   const selectedItem = productsModel.getSelectedProduct();
   if (selectedItem === null) return;
 
-  //изменение текста кнопки
-  if (basketModel.isProductInBasket(selectedItem.id)) {
-    cardPreview.isInBasket(true);
-  } else {
-    cardPreview.isInBasket(false);
-  }
+  const isInBasket = basketModel.isProductInBasket(selectedItem.id);
+  const isAvailableForOrder = selectedItem.price !== null;
 
-  //дизейбл кнопки при необходимости
-  if (selectedItem.price === null) {
-    cardPreview.isAddToBasketEnabled(false);
+  if (!isAvailableForOrder) {
+    cardPreview.textOnBtn = 'Недоступно';
+    cardPreview.btnAvailable = false;
+  } else if (isInBasket) {
+    cardPreview.textOnBtn = 'Удалить из корзины';
+    cardPreview.btnAvailable = true;
   } else {
-    cardPreview.isAddToBasketEnabled(true);
+    cardPreview.textOnBtn = 'Купить';
+    cardPreview.btnAvailable = true;
   }
 
   modal.content = cardPreview.render(selectedItem);
@@ -121,15 +116,13 @@ events.on('preview:actionWithBasket', () => {
 //--КОРЗИНА--
 //изменить корзину
 events.on('basket:change', () => {
-  let itemIndex = 0;
 
-  const cardsList = basketModel.getProductsInBasket().map((item) => {
+  const cardsList = basketModel.getProductsInBasket().map((item, index) => {
     const cardInBasket = new CardInBasket( //создаем новый экземпляр карточки
       cloneTemplate<HTMLElement>('#card-basket'), //как контейнер выступает шаблон card-basket
       {onClick: () => events.emit('basket:removeProduct', item)} //при клике убираем продукт
     );
-    itemIndex++; //порядковый номер товара в корзине
-    cardInBasket.itemIndex = itemIndex;
+    cardInBasket.itemIndex = index + 1;
     return cardInBasket.render(item); //рендерим по данным из пункта 
   })
 
@@ -138,11 +131,7 @@ events.on('basket:change', () => {
   header.basketCounter = basketModel.getBasketItemsAmount();
 
   //дизейблим кнопку при необходимости
-  if (basketModel.getBasketItemsAmount() === 0) {
-    basketModal.isOrderEnabled(false);
-  } else {
-    basketModal.isOrderEnabled(true);
-  }
+  basketModal.isOrderEnabled(basketModel.getBasketItemsAmount() > 0);
 });
 
 //открыть корзину
@@ -188,25 +177,14 @@ events.on('orderForm:change', () => {
   orderForm.address = buyerModel.getBuyerData().address;
 
   const errorsInOrder = buyerModel.validateBuyerData();
-  let errorsText: string = "";
   
   //текст ошибки
-  if (errorsInOrder.payment && errorsInOrder.address) {
-    errorsText = `${errorsInOrder.payment}, ${errorsInOrder.address}`;
-  }  else if (errorsInOrder.address) {
-    errorsText = `${errorsInOrder.address}`;
-  } else if (errorsInOrder.payment) {
-    errorsText = `${errorsInOrder.payment}`;
-  };
+  const errorsText = [errorsInOrder.address, errorsInOrder.payment].filter(Boolean).join('; ');
 
   orderForm.formErrors = errorsText;
 
   //дизейблим ли кнопку
-  if(!errorsInOrder.payment && !errorsInOrder.address) {
-    orderForm.isNextAllowed(true);
-  } else {
-    orderForm.isNextAllowed(false);
-  }
+  orderForm.isNextAllowed(errorsText.length === 0);
 });
 
 //--ФОРМА КОНТАКТОВ--
@@ -231,25 +209,14 @@ events.on('contactsForm:change', () => {
   contactsForm.phone = buyerModel.getBuyerData().phone;
 
   const errorsInContacts = buyerModel.validateBuyerData();
-  let errorsText: string = "";
   
   //текст ошибки
-  if (errorsInContacts.email && errorsInContacts.phone) {
-    errorsText = `${errorsInContacts.email}, ${errorsInContacts.phone}`;
-  }  else if (errorsInContacts.phone) {
-    errorsText = `${errorsInContacts.phone}`;
-  } else if (errorsInContacts.email) {
-    errorsText = `${errorsInContacts.email}`;
-  };
+  const errorsText = [errorsInContacts.email, errorsInContacts.phone].filter(Boolean).join('; ');
 
   contactsForm.formErrors = errorsText;
 
   //дизейблим ли кнопку
-  if(!errorsInContacts.email && !errorsInContacts.phone) {
-    contactsForm.isNextAllowed(true);
-  } else {
-    contactsForm.isNextAllowed(false);
-  }
+  contactsForm.isNextAllowed(errorsText.length === 0);
 });
 
 //--API--

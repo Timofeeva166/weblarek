@@ -54,20 +54,7 @@ export class CardPreview extends Card<ICardPreview> {
     this.actionsWithBasketBtn.textContent = value;
   }
 
-  //изменение текста и дизейбл если недоступно для добавления
-  isAddToBasketEnabled(value: boolean): void {
+  set btnAvailable(value: boolean) {
     this.actionsWithBasketBtn.disabled = !value;
-    if (value === false) {
-      this.actionsWithBasketBtn.textContent = 'Недоступно';
-    }
-  }
-
-  //изменение текста в зависимости от того, есть ли товар в корзине
-  isInBasket(value: boolean): void {
-    if (value === true) {
-      this.textOnBtn = 'Удалить из корзины';
-    } else {
-      this.textOnBtn = 'Купить';
-    }
   }
 }

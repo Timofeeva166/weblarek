@@ -18,13 +18,13 @@ export class Modal extends Component<IModal> {
 
     //закрыть модалку по кресту
     this.closeBtn.addEventListener('click', () => {
-      this.events.emit('modal:close');
+      this.closeModal();
     });
 
     //закрытие модалки по клику вне
     this.container.addEventListener("click", (e) => {
       if (e.target === this.container) {
-        this.events.emit("modal:close");
+        this.closeModal();
       }
     });
   }
